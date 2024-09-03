@@ -1,5 +1,6 @@
 from json import dumps
 from itertools import accumulate
+from bisect import bisect_right
 
 import click
 
@@ -17,7 +18,7 @@ EXPECTED = [
 @click.command("1894")
 def problem_1894():
     for case, expected in zip(TEST_CASES, EXPECTED, strict=True):
-        actual = solution(3 * case)
+        actual = solution3(*case)
         correct = dumps(actual) == dumps(expected)
         print(f"{case=} {correct=} {expected=} {actual=}")
 
@@ -35,3 +36,8 @@ def solution2(chalk: list[int], k: int) -> int:
     for i, curr in enumerate(accumulate(chalk)):
         if curr > remaining:
             return i
+
+
+def solution3(chalk: list[int], k: int) -> int:
+    summed = list(accumulate(chalk))
+    return bisect_right(summed, k % summed[-1])
