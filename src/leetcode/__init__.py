@@ -1,5 +1,6 @@
 import click
 
+from .problem_template import problem_template
 from .problem_2022 import problem_2022
 from .problem_1894 import problem_1894
 
@@ -9,6 +10,7 @@ def cli() -> str:
     pass
 
 
+cli.add_command(problem_template)
 cli.add_command(problem_2022)
 cli.add_command(problem_1894)
 
