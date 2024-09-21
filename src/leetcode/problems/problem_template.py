@@ -1,4 +1,4 @@
-from json import dumps
+from ..judge import simple_judge
 
 import click
 
@@ -19,7 +19,7 @@ EXPECTED = [
 def problem():
     for case, expected in zip(TEST_CASES, EXPECTED, strict=True):
         actual = solution(*case)
-        correct = dumps(actual) == dumps(expected)
+        correct = simple_judge(actual, expected)
         print(f"{case=} {correct=} {expected=} {actual=}")
 
 
