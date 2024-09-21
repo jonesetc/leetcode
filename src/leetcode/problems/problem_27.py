@@ -1,7 +1,7 @@
 import click
 
-
 from ..judge import beginning_list_judge
+from ..test_cases import filter_and_zip
 
 TEST_CASES = [
     [[3, 2, 2, 3], 3],
@@ -15,8 +15,9 @@ EXPECTED = [
 
 
 @click.command("27")
-def problem():
-    for case, expected in zip(TEST_CASES, EXPECTED, strict=True):
+@click.argument("test-cases", nargs=-1, type=click.IntRange(0, len(TEST_CASES) - 1))
+def problem(test_cases: list[int]):
+    for case, expected in filter_and_zip(TEST_CASES, EXPECTED, test_cases):
         length = solution(*case)
         actual = case[0]
         correct = beginning_list_judge(case[0], expected, length, ordered=False)

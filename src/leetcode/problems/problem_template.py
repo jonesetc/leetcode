@@ -1,6 +1,8 @@
-from ..judge import simple_judge
-
 import click
+
+from ..judge import simple_judge
+from ..test_cases import filter_and_zip
+
 
 TEST_CASES = [
     [1],
@@ -16,8 +18,9 @@ EXPECTED = [
 
 
 @click.command("template")
-def problem():
-    for case, expected in zip(TEST_CASES, EXPECTED, strict=True):
+@click.argument("test-cases", nargs=-1, type=click.IntRange(0, len(TEST_CASES) - 1))
+def problem(test_cases: list[int]):
+    for case, expected in filter_and_zip(TEST_CASES, EXPECTED, test_cases):
         actual = solution(*case)
         correct = simple_judge(actual, expected)
         print(f"{case=} {correct=} {expected=} {actual=}")

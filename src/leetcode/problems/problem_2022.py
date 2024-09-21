@@ -1,6 +1,7 @@
 import click
 
 from ..judge import json_judge
+from ..test_cases import filter_and_zip
 
 
 TEST_CASES = [
@@ -17,8 +18,9 @@ EXPECTED = [
 
 
 @click.command("2022")
-def problem():
-    for case, expected in zip(TEST_CASES, EXPECTED, strict=True):
+@click.argument("test-cases", nargs=-1, type=click.IntRange(0, len(TEST_CASES) - 1))
+def problem(test_cases: list[int]):
+    for case, expected in filter_and_zip(TEST_CASES, EXPECTED, test_cases):
         actual = solution2(*case)
         correct = json_judge(actual, expected)
         print(f"{case=} {correct=} {expected=} {actual=}")
