@@ -5,6 +5,7 @@ from .problem_2022 import problem_2022
 from .problem_1894 import problem_1894
 from .problem_1945 import problem_1945
 from .problem_874 import problem_874
+from .problem_88 import problem_88
 
 
 @click.group(help="Tool for running some leetcode stuff")
@@ -17,6 +18,7 @@ cli.add_command(problem_2022)
 cli.add_command(problem_1894)
 cli.add_command(problem_1945)
 cli.add_command(problem_874)
+cli.add_command(problem_88)
 
 if __name__ == "__main__":
     cli()
