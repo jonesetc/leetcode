@@ -1,6 +1,7 @@
-from json import dumps
-
 import click
+
+
+from ..judge import list_judge
 
 TEST_CASES = [
     [[1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3],
@@ -16,11 +17,11 @@ EXPECTED = [
 
 
 @click.command("88")
-def problem_88():
+def problem():
     for case, expected in zip(TEST_CASES, EXPECTED, strict=True):
         solution(*case)
         actual = case[0]
-        correct = dumps(actual) == dumps(expected)
+        correct = list_judge(case[0], expected)
         print(f"{case=} {correct=} {expected=} {actual=}")
 
 

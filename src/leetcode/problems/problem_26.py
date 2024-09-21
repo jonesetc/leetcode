@@ -1,6 +1,6 @@
-from json import dumps
-
 import click
+
+from ..judge import beginning_list_judge
 
 TEST_CASES = [
     [[1, 1, 2]],
@@ -8,17 +8,18 @@ TEST_CASES = [
 ]
 
 EXPECTED = [
-    2,
-    5,
+    [1, 2],
+    [0, 1, 2, 3, 4],
 ]
 
 
 @click.command("26")
-def problem_26():
+def problem():
     for case, expected in zip(TEST_CASES, EXPECTED, strict=True):
-        actual = solution(*case)
-        correct = dumps(actual) == dumps(expected)
-        print(f"{case=} {correct=} {expected=} {actual=}")
+        length = solution(*case)
+        actual = case[0]
+        correct = beginning_list_judge(case[0], expected, length)
+        print(f"{case=} {correct=} {actual=} {expected=}")
 
 
 def solution(nums: list[int]) -> int:

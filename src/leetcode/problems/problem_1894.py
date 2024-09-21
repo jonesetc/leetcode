@@ -1,8 +1,9 @@
-from json import dumps
 from itertools import accumulate
 from bisect import bisect_right
 
 import click
+
+from ..judge import simple_judge
 
 TEST_CASES = [
     [[5, 1, 5], 22],
@@ -16,10 +17,10 @@ EXPECTED = [
 
 
 @click.command("1894")
-def problem_1894():
+def problem():
     for case, expected in zip(TEST_CASES, EXPECTED, strict=True):
         actual = solution3(*case)
-        correct = dumps(actual) == dumps(expected)
+        correct = simple_judge(actual, expected)
         print(f"{case=} {correct=} {expected=} {actual=}")
 
 

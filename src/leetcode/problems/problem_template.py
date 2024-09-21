@@ -16,7 +16,7 @@ EXPECTED = [
 
 
 @click.command("template")
-def problem_template():
+def problem():
     for case, expected in zip(TEST_CASES, EXPECTED, strict=True):
         actual = solution(*case)
         correct = dumps(actual) == dumps(expected)
