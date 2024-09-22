@@ -6,9 +6,9 @@ import click
 
 def get_problems() -> list[str]:
     return [
-        file.name.removesuffix(".py")
+        file.stem
         for file in (Path(__file__).resolve().parent / "problems").glob("*.py")
-        if file.is_file() and file.name != "__init__.py"
+        if file.is_file() and file.name != "__init__.py" and file.name != "template.py"
     ]
 
 
