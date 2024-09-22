@@ -21,10 +21,11 @@ EXPECTED = [
 @click.argument("test-cases", nargs=-1, type=click.IntRange(0, len(TEST_CASES) - 1))
 def problem(test_cases: list[int]):
     for case, expected in filter_and_zip(TEST_CASES, EXPECTED, test_cases):
+        print(f"{case=}", end=" ")
         solution(*case)
         actual = case[0]
         correct = list_judge(case[0], expected)
-        print(f"{case=} {correct=} {expected=} {actual=}")
+        print(f"{correct=} {expected=} {actual=}")
 
 
 def solution(nums1: list[int], m: int, nums2: list[int], n: int) -> None:
