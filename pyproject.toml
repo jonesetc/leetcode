@@ -6,7 +6,6 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "click>=8.1.7",
-    "ruff>=0.6.3",
 ]
 
 [project.scripts]
@@ -21,3 +20,8 @@ packages = ["src/leetcode"]
 
 [tool.ruff]
 include = ["src/**/*.py"]
+
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.6.3",
+]
