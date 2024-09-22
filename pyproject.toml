@@ -23,5 +23,5 @@ include = ["src/**/*.py"]
 
 [tool.uv]
 dev-dependencies = [
-    "ruff>=0.6.3",
+    "ruff>=0.6.7",
 ]
