@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import click
 
 from ..judge import simple_judge
@@ -38,6 +40,21 @@ def solution(gas: list[int], cost: list[int]) -> int:
         segment_required += g - c
     else:
         segments[segment_start] = segment_required
+
+    if sum(segments.values()) < 0:
+        return -1
+
+    return sorted(segments, key=segments.get, reverse=True)[0]
+
+
+def solution2(gas: list[int], cost: list[int]) -> int:
+    segments = defaultdict(int)
+    segment_start = 0
+
+    for i, (g, c) in enumerate(zip(gas, cost)):
+        if segments[segment_start] < 0:
+            segment_start = i
+        segments[segment_start] += g - c
 
     if sum(segments.values()) < 0:
         return -1
