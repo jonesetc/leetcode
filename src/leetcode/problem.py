@@ -1,6 +1,7 @@
 from abc import ABC, ABCMeta, abstractmethod
 from typing import Callable, Tuple
 from pathlib import PurePath
+import webbrowser
 
 import click
 
@@ -87,6 +88,10 @@ class ProblemCommand(ABCMeta):
                     run_test_case_func, [i for i in range(num_test_cases)]
                 )
             )
+        )
+
+        attrs["open_problem"] = click.command(slug)(
+            lambda: webbrowser.open(f"https://leetcode.com/problems/{slug}")
         )
 
         return super().__new__(cls, name, bases, attrs)
