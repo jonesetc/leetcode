@@ -1,70 +1,57 @@
 from collections import Counter
 
-import click
-
-from ..command import get_problem_name
-from ..judge import simple_judge
-from ..test_cases import filter_and_zip
+from ..problem import AbstractProblem, ProblemCommand
 
 
-TEST_CASES = [
-    [[3, 2, 3]],
-    [[2, 2, 1, 1, 1, 2, 2]],
-    [[3, 3, 4]],
-]
+class Problem(AbstractProblem, metaclass=ProblemCommand, filename=__file__):
+    TEST_CASES = [
+        [[3, 2, 3]],
+        [[2, 2, 1, 1, 1, 2, 2]],
+        [[3, 3, 4]],
+    ]
 
-EXPECTED = [
-    3,
-    2,
-    3,
-]
+    EXPECTED = [
+        3,
+        2,
+        3,
+    ]
 
+    @staticmethod
+    def solution(nums: list[int]) -> int:
+        return Counter(nums).most_common(1)[0][0]
 
-@click.command(get_problem_name(__file__))
-@click.argument("test-cases", nargs=-1, type=click.IntRange(0, len(TEST_CASES) - 1))
-def problem(test_cases: list[int]):
-    for case, expected in filter_and_zip(TEST_CASES, EXPECTED, test_cases):
-        print(f"{case=}", end=" ")
-        actual = solution3(*case)
-        correct = simple_judge(actual, expected)
-        print(f"{correct=} {expected=} {actual=}")
+    @staticmethod
+    def solution2(nums: list[int]) -> int:
+        nums.sort()
 
+        most_common = nums[0]
+        longest_run = 1
+        run_start = 0
 
-def solution(nums: list[int]) -> int:
-    return Counter(nums).most_common(1)[0][0]
-
-
-def solution2(nums: list[int]) -> int:
-    nums.sort()
-
-    most_common = nums[0]
-    longest_run = 1
-    run_start = 0
-
-    for i, element in enumerate(nums[1:]):
-        if element != nums[run_start]:
-            if longest_run < i - run_start + 1:
+        for i, element in enumerate(nums[1:]):
+            if element != nums[run_start]:
+                if longest_run < i - run_start + 1:
+                    most_common = element
+                    longest_run = i - run_start + 1
+                run_start = i + 1
+            elif longest_run < i - run_start + 2:
                 most_common = element
-                longest_run = i - run_start + 1
-            run_start = i + 1
-        elif longest_run < i - run_start + 2:
-            most_common = element
-            longest_run = i - run_start + 2
+                longest_run = i - run_start + 2
 
-    return most_common
+        return most_common
 
+    @staticmethod
+    def solution3(nums: list[int]) -> int:
+        most_common = nums[0]
+        votes = 1
 
-def solution3(nums: list[int]) -> int:
-    most_common = nums[0]
-    votes = 1
+        for element in nums[1:]:
+            if votes == 0:
+                most_common = element
 
-    for element in nums[1:]:
-        if votes == 0:
-            most_common = element
+            if most_common != element:
+                votes -= 1
+            else:
+                votes += 1
 
-        if most_common != element:
-            votes -= 1
-        else:
-            votes += 1
-
-    return most_common
+        return most_common

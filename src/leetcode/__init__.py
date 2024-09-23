@@ -8,7 +8,8 @@ def get_problems() -> list[str]:
     return [
         file.stem
         for file in (Path(__file__).resolve().parent / "problems").glob("*.py")
-        if file.is_file() and file.name != "__init__.py" and file.name != "template.py"
+        if file.is_file()
+        and file.name != "__init__.py"  # and file.name != "template.py"
     ]
 
 
@@ -19,7 +20,11 @@ def cli() -> str:
 
 for problem in get_problems():
     module = import_module(f"leetcode.problems.{problem}")
-    cli.add_command(module.problem)
+
+    if hasattr(module, "Problem"):
+        cli.add_command(module.Problem.run_test_cases)
+    else:
+        cli.add_command(module.problem)
 
 if __name__ == "__main__":
     cli()
