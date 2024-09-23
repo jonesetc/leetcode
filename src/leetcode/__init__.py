@@ -18,6 +18,13 @@ def cli():
     pass
 
 
+@cli.command("list", help="Run a problem by name")
+def list_problems():
+    print("Available problems:")
+    for p in get_problems():
+        print(f"  {p.replace("_", "-")}")
+
+
 @cli.group(help="Run a problem by name")
 def run():
     pass
