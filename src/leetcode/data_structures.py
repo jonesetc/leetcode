@@ -1,11 +1,11 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Self
 
 
 @dataclass
 class ListNode[T]:
     val: T
-    next: Optional["ListNode[T]"] = None
+    next: Self | None = None
 
 
 def list_to_linked_list[T](

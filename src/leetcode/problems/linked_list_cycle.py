@@ -1,5 +1,3 @@
-from os import readv
-
 from ..problem import AbstractProblem, ProblemCommand
 from ..data_structures import ListNode, list_to_linked_list
 
