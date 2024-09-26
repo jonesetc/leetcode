@@ -1,4 +1,4 @@
-from ..data_structures import ListNode, list_to_linked_list, linked_list_to_list
+from ..linked_list import ListNode, list_to_linked_list, linked_list_to_list
 from ..problem import AbstractProblem, ProblemCommand
 
 

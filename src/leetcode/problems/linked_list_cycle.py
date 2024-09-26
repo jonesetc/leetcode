@@ -1,5 +1,5 @@
 from ..problem import AbstractProblem, ProblemCommand
-from ..data_structures import ListNode, list_to_linked_list
+from ..linked_list import ListNode, list_to_linked_list
 
 
 class Problem(AbstractProblem, metaclass=ProblemCommand, filename=__file__):
