@@ -20,7 +20,7 @@ class Problem(AbstractProblem, metaclass=ProblemCommand, filename=__file__):
         return Problem.real_solution(list_to_linked_list(l, pos))
 
     @staticmethod
-    def real_solution(head: ListNode | None) -> bool:
+    def real_solution(head: ListNode[int] | None) -> bool:
         trailing = head
         leading = head.next if head is not None else head
 
@@ -31,10 +31,10 @@ class Problem(AbstractProblem, metaclass=ProblemCommand, filename=__file__):
             if (leading := leading.next) is not None:
                 if leading == trailing:
                     return True
+                else:
+                    leading = leading.next
+                    trailing = trailing.next
             else:
                 return False
-
-            leading = leading.next
-            trailing = trailing.next
 
         return False

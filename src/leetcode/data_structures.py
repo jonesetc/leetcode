@@ -34,3 +34,14 @@ def list_to_linked_list[T](
     tail.next = loop_to
 
     return head
+
+
+def linked_list_to_list[T](head: ListNode[T] | None) -> list[T]:
+    l = []
+    curr = head
+
+    while curr is not None:
+        l.append(curr.val)
+        curr = curr.next
+
+    return l
