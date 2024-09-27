@@ -16,7 +16,7 @@ class Problem(AbstractProblem, metaclass=ProblemCommand, filename=__file__):
     ]
 
     @staticmethod
-    def solution(p: list[int], q: list[int]) -> bool:
+    def solution(p: list[int | None], q: list[int | None]) -> bool:
         return Problem.real_solution(
             list_to_breadth_first_binary_tree(p),
             list_to_breadth_first_binary_tree(q),

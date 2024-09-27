@@ -14,7 +14,7 @@ class Problem(AbstractProblem, metaclass=ProblemCommand, filename=__file__):
     ]
 
     @staticmethod
-    def solution(root: list[int]) -> int:
+    def solution(root: list[int | None]) -> int:
         return Problem.real_solution(list_to_breadth_first_binary_tree(root))
 
     @staticmethod
